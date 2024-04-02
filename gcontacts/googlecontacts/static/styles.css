@@ -1,0 +1,117 @@
+* {
+    font-family: "Roboto";
+    margin: 0;
+    padding: 0;
+  }
+  
+  .container {
+    display: flex;
+    max-width: 1000px;
+    margin: 20px auto;
+    padding: 20px;
+  }
+  
+  .left-nav {
+    width: 200px;
+    /* background-color: #f0f0f0; */
+    padding: 20px;
+    height: 80vh;
+  }
+  
+  .left-nav ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .left-nav li {
+    margin-bottom: 10px;
+    font-size: large;
+  }
+  
+  .left-nav a {
+    text-decoration: none;
+    color: #333;
+  }
+  
+  .left-nav a:hover {
+    color: #007bff;
+  }
+  
+  main {
+    flex: 1;
+    padding-left: 20px;
+  }
+  
+  header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .contact-title {
+    font-size: 2.6em;
+  }
+  
+
+
+  :root {
+    --md-outlined-text-field-input-text-line-height: 0.2em; /* Adjusted line height */
+
+  }
+  #searchInput {
+    width: 300px;
+    
+  }
+  
+  #contactsList {
+    margin-top: 20px;
+  }
+  
+  .contact-card {
+    padding: 20px;
+  }
+  
+  .contact-card h2 {
+    margin: 0;
+  }
+  
+  .contact-card p {
+    margin: 5px 0;
+  }
+  
+  .action-buttons {
+    display: flex;
+    justify-content: flex-end;
+  }
+  
+  .mat-button {
+    font-size: medium;
+    width: 100px;
+    
+}
+  
+
+.contacts {
+    width: 600px;
+    margin: auto;
+  }
+
+  .contacts [slot='header'] {
+    display: flex;
+    flex-direction: row-reverse;
+    align-items: center;
+  }
+
+  .contacts .headline {
+    flex: 1;
+  }
+
+  .contact-content{
+    display: flex;
+    flex-direction: column;
+    padding: 20px 50px;
+  }
+
+
+
+  

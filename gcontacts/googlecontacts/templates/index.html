@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+
+{% load static %}
+
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Google Contacts</title>
+    <link rel="stylesheet" href="{% static 'styles.css' %}" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <script src="{% static 'bundle.js' %}"></script>
+
+    <div class="container">
+      <md-filled-card>
+        <nav class="left-nav">
+          <ul>
+            <li><a href="#" id="viewContacts">View Contacts</a></li>
+            <li>
+              <a href="#" id="addContact" onclick="openDialog()">Add Contact</a>
+            </li>
+          </ul>
+        </nav>
+      </md-filled-card>
+
+      <main>
+        <header>
+          <h1 class="contact-title">Contacts</h1>
+          <!-- <input type="text" id="searchInput" placeholder="Search contacts..."> -->
+          <md-outlined-text-field
+            label="Search contacts..."
+            id="searchInput"
+          ></md-outlined-text-field>
+        </header>
+        <!-- <div id="contactsList">
+        Contact cards will be dynamically added here
+      </div> -->
+
+        <p>{{contact_list}}</p>
+        {% for item in contact_list %}
+        <md-elevated-card id="contactsList">
+          <div class="contact-card">
+            <h2>{{ item.name }}</h2>
+            <p>Email: {{ item.email }}</p>
+            <p>Phone: {{ item.phone_number }}</p>
+            <div class="action-buttons">
+              <form method="post" action="{% url 'delete_contact' item.id %}">
+                {% csrf_token %}
+                <md-outlined-button
+                  class="delete mat-button"
+                  role="presentation"
+                  value=""
+                  type="submit"
+                  >Delete</md-outlined-button
+                >
+              </form>
+              <md-filled-button
+                class="edit mat-button"
+                role="presentation"
+                value=""
+                onclick="openEditDialog('{{ item.name }}', '{{ item.email }}', '{{ item.phone_number }}', {{ item.id }} )"
+                >Edit</md-filled-button
+              >
+            </div>
+          </div>
+        </md-elevated-card>
+
+        {% endfor %}
+      </main>
+    </div>
+
+    <md-dialog class="contacts" id="addContactDailog">
+      <span slot="headline" style="padding-left: 50px; padding-top: 20px">
+        <span class="headline">Create new contact</span>
+      </span>
+      <form id="form" slot="content" method="dialog" class="contact-content">
+        <md-outlined-text-field
+          autofocus
+          label="Name"
+          class="Name"
+        ></md-outlined-text-field>
+        <br />
+        <md-outlined-text-field
+          label="Email"
+          class="Email"
+        ></md-outlined-text-field>
+        <br />
+        <md-outlined-text-field
+          label="Phone"
+          class="Phone"
+        ></md-outlined-text-field>
+      </form>
+      <div slot="actions" style="margin-right: 45px; padding-bottom: 20px">
+        <div style="flex: 1"></div>
+        <md-text-button form="form" value="cancel">Cancel</md-text-button>
+        <md-text-button form="form" value="save">Save</md-text-button>
+      </div>
+    </md-dialog>
+
+    <md-dialog class="contacts" id="editContactDailog">
+      <span slot="headline" style="padding-left: 50px; padding-top: 20px">
+        <span class="headline">Edit contact</span>
+      </span>
+      <form
+        id="editform"
+        slot="content"
+        method="POST"
+        class="contact-content"
+        action="{% url 'edit_contact' 0 %}"
+      >
+        {% csrf_token %}
+        <md-outlined-text-field
+          autofocus
+          label="Name"
+          class="Name"
+          id="editname"
+          name="fullname"
+        ></md-outlined-text-field>
+        <br />
+        <md-outlined-text-field
+          label="Email"
+          class="Email"
+          id="editemail"
+          name="email"
+        ></md-outlined-text-field>
+        <br />
+        <md-outlined-text-field
+          label="Phone"
+          class="Phone"
+          id="editphone"
+          name="phone"
+        ></md-outlined-text-field>
+        <div style="padding-bottom: 20p; display: flex; justify-content: right;">
+          <div></div>
+          {% comment %} <md-text-button value="cancel">Cancel</md-text-button> {% endcomment %}
+
+          <md-text-button value="save">Save</md-text-button>
+        </div>
+      </form>
+    </md-dialog>
+
+    {% comment %}
+    <script src="script.js"></script>
+    {% endcomment %}
+
+    <script>
+      const addContactDailog = document.getElementById("addContactDailog");
+      const editContactDailog = document.getElementById("editContactDailog");
+      var test = 10;
+
+      var name = "";
+      var email = "";
+      var phone_number = "";
+
+      function openDialog() {
+        addContactDailog.show();
+      }
+
+      function openEditDialog(name, email, phone_number, contact_id) {
+        document.getElementById("editname").value = name;
+        document.getElementById("editemail").value = email;
+        document.getElementById("editphone").value = phone_number;
+        var form = document.getElementById("editform");
+        form.action = "{% url 'edit_contact' 0 %}".replace("0", contact_id);
+        editContactDailog.show();
+      }
+    </script>
+  </body>
+</html>
