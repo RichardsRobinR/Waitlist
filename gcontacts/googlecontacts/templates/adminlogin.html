@@ -133,6 +133,7 @@
       .rightbottom {
         padding-top: 30px;
         padding-bottom: 40px;
+        width: 100%;
       }
 
       .btn-signin {
@@ -141,7 +142,7 @@
       }
 
       .username,
-      .email {
+      .password {
         width: 430px;
         padding-bottom: 20px;
       }
@@ -152,32 +153,39 @@
 
     <div class="container">
       <div class="glogo">
-        <img src="36px.svg" alt="Logo" />
+        <img src="{% static 'media/36px.svg' %}" alt="Logo" />
       </div>
       <div class="second">
         <div class="left">
-          <h1>Sign in</h1>
-          <p>to continue to Gmail</p>
+          <h1>Login</h1>
+          <p>to continue to Dashboard</p>
         </div>
 
         <div class="right">
-          <form action="#" class="form-container">
+          <form
+            method="post"
+            action="{% url 'admin_validate' %}"
+            class="form-container"
+          >
+            {% csrf_token %}
             <md-outlined-text-field
               label="Username"
               class="username"
+              name="fullname"
             ></md-outlined-text-field>
             <md-outlined-text-field
-              label="Email"
-              class="email"
+              label="Password"
+              class="password"
+              name="password"
             ></md-outlined-text-field>
 
             <div class="rightbottom">
-              <p>Not your computer? Use Guest mode to sign in privately.</p>
-              <p>Learn more about using Guest mode</p>
+              <p>Forgot Password?</p>
+              <p>Learn more about resetting the admin password.</p>
             </div>
 
             <md-filled-button class="btn-signin" role="presentation" value=""
-              >Edit</md-filled-button
+              >Login</md-filled-button
             >
           </form>
         </div>

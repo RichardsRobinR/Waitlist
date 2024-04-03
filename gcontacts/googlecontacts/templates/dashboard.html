@@ -26,24 +26,25 @@
             <li>
               <a href="#" id="addContact" onclick="openDialog()">Add Contact</a>
             </li>
+            <li><a href="{% url 'adminlogin' %}">Logout</a></li>
           </ul>
         </nav>
       </md-filled-card>
 
       <main>
         <header>
-          <h1 class="contact-title">Contacts</h1>
-          <!-- <input type="text" id="searchInput" placeholder="Search contacts..."> -->
-          <md-outlined-text-field
+          <h1 class="contact-title">WaitList Contacts</h1>
+
+          <!-- <md-outlined-text-field
             label="Search contacts..."
             id="searchInput"
-          ></md-outlined-text-field>
+          ></md-outlined-text-field> -->
         </header>
         <!-- <div id="contactsList">
         Contact cards will be dynamically added here
       </div> -->
 
-        <p>{{contact_list}}</p>
+        <!-- <p>{{contact_list}}</p> -->
         {% for item in contact_list %}
         <md-elevated-card id="contactsList">
           <div class="contact-card">
@@ -137,9 +138,11 @@
           id="editphone"
           name="phone"
         ></md-outlined-text-field>
-        <div style="padding-bottom: 20p; display: flex; justify-content: right;">
+        <div style="padding-bottom: 20p; display: flex; justify-content: right">
           <div></div>
-          {% comment %} <md-text-button value="cancel">Cancel</md-text-button> {% endcomment %}
+          {% comment %}
+          <md-text-button value="cancel">Cancel</md-text-button> {% endcomment
+          %}
 
           <md-text-button value="save">Save</md-text-button>
         </div>
