@@ -1,8 +1,9 @@
 from django.urls import path
 from . import views
 
+
 urlpatterns = [
-    path("", views.login, name="login"),
+    path("dashboard_page/", views.dashboard_page, name="dashboard_page"),
     path(
         "delete_contact/<int:contact_id>/", views.delete_contact, name="delete_contact"
     ),
@@ -12,8 +13,11 @@ urlpatterns = [
     #     views.edit_contact,
     #     name="edit_contact",
     # ),
-    path("registration/", views.registration, name="registration"),
-    path("joinwaitlist/", views.joinwaitlist, name="joinwaitlist"),
-    path("waitlist/", views.waitlist, name="waitlist"),
-    path("userlogin/", views.waitlist, name="userlogin"),
+    path(
+        "registration/", views.registration, name="registration"
+    ),  # user registration page to join waitlist
+    path("joinwaitlist/", views.joinwaitlist, name="joinwaitlist"),  # adding to the DB
+    path("waitlist/", views.waitlist, name="waitlist"),  # waitlist details page
+    path("adminlogin/", views.adminlogin, name="adminlogin"),
+    path("admin_validate/", views.admin_validate, name="admin_validate"),
 ]

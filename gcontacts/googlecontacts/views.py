@@ -1,15 +1,15 @@
 from django.shortcuts import render, HttpResponse, get_object_or_404, redirect
 from django.template import loader
-from .models import Contact
+from .models import Contact, Adminusers
 from django.urls import reverse
 from .forms import ContactForm
 from django.http import JsonResponse
 
 
 # Create your views here.
-def login(request):
+def dashboard_page(request):
     contact_list = Contact.objects.all().values()
-    template = loader.get_template("index.html")
+    template = loader.get_template("dashboard.html")
     context = {"contact_list": contact_list}
     # return JsonResponse({"name": "richard"})
     return HttpResponse(template.render(context, request))
@@ -18,7 +18,7 @@ def login(request):
 def delete_contact(request, contact_id):
     contact = get_object_or_404(Contact, pk=contact_id)
     contact.delete()
-    return redirect(login)
+    return redirect(reverse("dashboard_page"))
 
 
 def edit_contact(request, contact_id):
@@ -30,7 +30,7 @@ def edit_contact(request, contact_id):
     contact.email = request.POST["email"]
     contact.save()
     # return JsonResponse({"name": str(request.POST["fullname"])})
-    return redirect(reverse("login"))
+    return redirect(reverse("dashboard_page"))
     contact = get_object_or_404(Contact, pk=contact_id)
     # login_url = reverse("login")
     # redirect_url = f"{login_url}?contact={contact}"
@@ -47,14 +47,40 @@ def joinwaitlist(request):
     name = request.POST["fullname"]
     phone_number = request.POST["phone"]
     email = request.POST["email"]
-    contact = Contact(name=name, phone_number=phone_number, email=email)
-    contact.save()
-    return redirect(reverse("login"))
-    return JsonResponse({"name": "richard"})
+
+    user = Contact.objects.filter(
+        name=name, phone_number=phone_number, email=email
+    ).first()
+
+    context = {"name": name}
+    template = loader.get_template("terminal.html")
+
+    if user:
+        # return redirect(reverse("waitlist"))
+        return HttpResponse(template.render(context, request))
+    else:
+        contact = Contact(name=name, phone_number=phone_number, email=email)
+        contact.save()
+        HttpResponse(template.render(context, request))
+        # return redirect(reverse("waitlist"))
+    # return JsonResponse({"name": "richard"})
+
 
 def waitlist(request):
     return render(request, "terminal.html")
 
-def userlogin(request):
-    return render(request, "userlogin.html")
 
+def adminlogin(request):
+    return render(request, "adminlogin.html")
+
+
+def admin_validate(request):
+    name = request.POST["fullname"]
+    password = request.POST["password"]
+
+    user = Adminusers.objects.filter(name=name, password=password).first()
+
+    if user:
+        return redirect(reverse("dashboard_page"))
+    else:
+        return redirect(reverse("adminlogin"))

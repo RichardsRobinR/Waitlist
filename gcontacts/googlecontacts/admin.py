@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Contact
+from .models import Contact, Adminusers
 
 # Register your models here.
 
@@ -13,4 +13,12 @@ class ContactAdmin(admin.ModelAdmin):
     )
 
 
+class AdminusersAdmin(admin.ModelAdmin):
+    list_display = (
+        "name",
+        "password",
+    )
+
+
 admin.site.register(Contact, ContactAdmin)
+admin.site.register(Adminusers, AdminusersAdmin)
