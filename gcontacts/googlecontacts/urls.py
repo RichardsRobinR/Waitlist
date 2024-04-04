@@ -20,4 +20,5 @@ urlpatterns = [
     path("waitlist/", views.waitlist, name="waitlist"),  # waitlist details page
     path("adminlogin/", views.adminlogin, name="adminlogin"),
     path("admin_validate/", views.admin_validate, name="admin_validate"),
+    path("add_contact/", views.add_contact, name="add_contact"),
 ]

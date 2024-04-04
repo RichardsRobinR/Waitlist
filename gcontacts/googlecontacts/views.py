@@ -61,8 +61,21 @@ def joinwaitlist(request):
     else:
         contact = Contact(name=name, phone_number=phone_number, email=email)
         contact.save()
-        HttpResponse(template.render(context, request))
+        return HttpResponse(template.render(context, request))
         # return redirect(reverse("waitlist"))
+    # return JsonResponse({"name": "richard"})
+
+
+def add_contact(request):
+    print("testing add contact")
+    name = request.POST["fullname"]
+    phone_number = request.POST["phone"]
+    email = request.POST["email"]
+
+    contact = Contact(name=name, phone_number=phone_number, email=email)
+    contact.save()
+    return redirect(reverse("dashboard_page"))
+    # return redirect(reverse("waitlist"))
     # return JsonResponse({"name": "richard"})
 
 

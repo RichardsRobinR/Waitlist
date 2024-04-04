@@ -120,28 +120,38 @@
       <span slot="headline" style="padding-left: 50px; padding-top: 20px">
         <span class="headline">Create new contact</span>
       </span>
-      <form id="form" slot="content" method="dialog" class="contact-content">
+      <form
+        id="form"
+        slot="content"
+        method="post"
+        action="{% url 'add_contact' %}"
+        class="contact-content"
+      >
+        {% csrf_token %}
         <md-outlined-text-field
           autofocus
           label="Name"
           class="Name"
+          name="fullname"
         ></md-outlined-text-field>
         <br />
         <md-outlined-text-field
           label="Email"
           class="Email"
+          name="email"
         ></md-outlined-text-field>
         <br />
         <md-outlined-text-field
           label="Phone"
           class="Phone"
+          name="phone"
         ></md-outlined-text-field>
+
+        <div style="padding-top: 10px; display: flex; justify-content: right">
+          <div></div>
+          <md-text-button value="save">Save</md-text-button>
+        </div>
       </form>
-      <div slot="actions" style="margin-right: 45px; padding-bottom: 20px">
-        <div style="flex: 1"></div>
-        <md-text-button form="form" value="cancel">Cancel</md-text-button>
-        <md-text-button form="form" value="save">Save</md-text-button>
-      </div>
     </md-dialog>
 
     <md-dialog class="contacts" id="editContactDailog">
