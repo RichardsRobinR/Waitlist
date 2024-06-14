@@ -24,9 +24,9 @@ pipeline {
       }
     }
 
-    stage('Check') {
+    stage('Login to docker') {
       steps {
-        sh 'echo "hello world"'
+        sh 'sudo docker login -u $DOCKERHUB_USERNAME -p $DOCKERHUB_PASSWORD'
       }
     }
 
