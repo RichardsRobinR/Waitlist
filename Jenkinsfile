@@ -7,5 +7,22 @@ pipeline {
       }
     }
 
+    stage('Build Docker') {
+      parallel {
+        stage('Build Docker') {
+          steps {
+            sh 'cd gcontacts && docker build -t waitlist-django-app:latest .'
+          }
+        }
+
+        stage('ls Log') {
+          steps {
+            sh 'cd gcontacts && ls -l'
+          }
+        }
+
+      }
+    }
+
   }
 }
