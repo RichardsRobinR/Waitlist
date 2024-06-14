@@ -24,5 +24,11 @@ pipeline {
       }
     }
 
+    stage('Check') {
+      steps {
+        sh 'echo "hello world"'
+      }
+    }
+
   }
 }
