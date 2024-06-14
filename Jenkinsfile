@@ -11,7 +11,7 @@ pipeline {
       parallel {
         stage('Build Docker') {
           steps {
-            sh 'cd gcontacts && sudo -S docker build -t waitlist-django-app:latest .'
+            sh 'cd gcontacts && echo admin | sudo -S docker build -t waitlist-django-app:latest .'
           }
         }
 
