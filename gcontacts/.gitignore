@@ -1,0 +1,6 @@
+env
+googlecontacts/__pycache__
+googlecontacts/tests/__pycache__
+tests/__pycache__
+googlecontacts/migrations
+gcontacts/__pycache__

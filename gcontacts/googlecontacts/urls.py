@@ -3,6 +3,9 @@ from . import views
 
 
 urlpatterns = [
+     path(
+        "", views.registration, name="registration"
+    ),
     path("dashboard_page/", views.dashboard_page, name="dashboard_page"),
     path(
         "delete_contact/<int:contact_id>/", views.delete_contact, name="delete_contact"
