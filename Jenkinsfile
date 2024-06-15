@@ -7,6 +7,27 @@ pipeline {
       }
     }
 
+    stage('SonarQube Analysis') {
+      steps {
+        script {
+          scannerHome = tool 'sonarqube'
+        }
+        withSonarQubeEnv('sonarcube-server') {
+          sh "${scannerHome}/bin/sonar-scanner"
+        } 
+      }
+    }
+
+    stage('Testing') {
+      steps {
+        sh 'cd gcontacts && sudo apt-get install virtualenv -y && virtualenv env'
+        sh 'source env/bin/activate'
+        sh 'pip install -r requirements.txt'
+        sh 'python manage.py migrate'
+        sh 'pytest'
+      }
+    }
+
     stage('Build Docker') {
       parallel {
         stage('Build Docker') {
@@ -37,23 +58,6 @@ pipeline {
       steps {
         sh 'docker tag waitlist-django-app richardsrobinr/waitlist-django-app:latest'
         sh 'docker push richardsrobinr/waitlist-django-app:latest'       
-      }
-    }
-
-    stage('SonarQube Analysis') {
-      steps {
-        script {
-          scannerHome = tool 'sonarqube'
-        }
-        withSonarQubeEnv('sonarcube-server') {
-          sh "${scannerHome}/bin/sonar-scanner"
-        } 
-      }
-    }
-
-    stage('Testing') {
-      steps {
-        sh 'cd gcontacts && pytest'
       }
     }
 
