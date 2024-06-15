@@ -36,7 +36,7 @@ pipeline {
     stage('Push to Dockerhub') {
       steps {
         sh 'docker tag waitlist-django-app richardsrobinr/waitlist-django-app:latest'
-        sh 'docker push richardsrobinr/waitlist-django-app:latest'
+        sh 'echo admin | sudo -S docker push richardsrobinr/waitlist-django-app:latest'
       }
     }
 
