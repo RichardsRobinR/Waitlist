@@ -51,5 +51,11 @@ pipeline {
       }
     }
 
+    stage('Testing') {
+      steps {
+        sh 'cd gcontacts && pytest'
+      }
+    }
+
   }
 }
