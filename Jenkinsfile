@@ -42,9 +42,11 @@ pipeline {
 
     stage('SonarQube Analysis') {
       steps {
-        def scannerHome = tool 'sonarqube';
+        script {
+          scannerHome = tool 'sonarqube'
+        }
         withSonarQubeEnv() {
-        sh "${scannerHome}/bin/sonar-scanner"
+          sh "${scannerHome}/bin/sonar-scanner"
         } 
       }
     }
