@@ -28,17 +28,18 @@ pipeline {
       steps {
         withCredentials([usernamePassword(credentialsId: 'credentials-docker', usernameVariable: 'DOCKERHUB_USERNAME', passwordVariable: 'DOCKERHUB_PASSWORD')]) {
           sh 'echo $DOCKERHUB_PASSWORD | docker login -u $DOCKERHUB_USERNAME --password-stdin'
+          sh 'docker tag waitlist-django-app richardsrobinr/waitlist-django-app:latest'
+          sh 'echo admin | sudo -S docker push richardsrobinr/waitlist-django-app:latest'
         }
         
       }
     }
 
-    stage('Push to Dockerhub') {
-      steps {
-        sh 'docker tag waitlist-django-app richardsrobinr/waitlist-django-app:latest'
-        sh 'echo admin | sudo -S docker push richardsrobinr/waitlist-django-app:latest'
-      }
-    }
+    // stage('Push to Dockerhub') {
+    //   steps {
+        
+    //   }
+    // }
 
   }
 }
