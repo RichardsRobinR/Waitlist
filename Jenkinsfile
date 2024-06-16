@@ -25,6 +25,7 @@ pipeline {
 
          // Print workspace directory for debugging
         sh 'pwd'
+        sh  'ls -l'
         
         // Activate the virtual environment
         sh '. ./env/bin/activate'
