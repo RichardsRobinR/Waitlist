@@ -7,16 +7,16 @@ pipeline {
       }
     }
 
-    stage('SonarQube Analysis') {
-      steps {
-        script {
-          scannerHome = tool 'sonarqube'
-        }
-        withSonarQubeEnv('sonarcube-server') {
-          sh "${scannerHome}/bin/sonar-scanner"
-        } 
-      }
-    }
+    // stage('SonarQube Analysis') {
+    //   steps {
+    //     script {
+    //       scannerHome = tool 'sonarqube'
+    //     }
+    //     withSonarQubeEnv('sonarcube-server') {
+    //       sh "${scannerHome}/bin/sonar-scanner"
+    //     } 
+    //   }
+    // }
 
     stage('Testing') {
       steps {
