@@ -21,7 +21,15 @@ pipeline {
     stage('Testing') {
       steps {
         sh 'cd gcontacts && pip install --user virtualenv &&  ~/.local/bin/virtualenv env '
-        sh '. env/bin/activate'
+
+
+         // Print workspace directory for debugging
+        sh 'pwd'
+        
+        // Activate the virtual environment
+        sh '. ./env/bin/activate'
+
+        // sh '. env/bin/activate'
         sh 'pip install -r requirements.txt'
         sh 'python manage.py migrate'
         sh 'pytest'
