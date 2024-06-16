@@ -29,12 +29,12 @@ pipeline {
         sh  'cd gcontacts && ls -l'
         
         // Activate the virtual environment
-        sh 'cd gcontacts && . ./env/bin/activate'
+        // sh 'cd gcontacts && . ./env/bin/activate'
 
         // sh '. env/bin/activate'
-        sh 'cd gcontacts && pip install -r requirements.txt'
-        sh 'cd gcontacts && ./env/bin/python ./manage.py migrate'
-        sh 'cd gcontacts && ./env/bin/pytest'
+        sh 'cd gcontacts && . ./env/bin/activate && pip install -r requirements.txt'
+        sh 'cd gcontacts && . ./env/bin/activate && ./env/bin/python ./manage.py migrate'
+        sh 'cd gcontacts && . ./env/bin/activate && ./env/bin/pytest'
       }
     }
 
