@@ -21,7 +21,7 @@ pipeline {
     stage('Testing') {
       steps {
         // sh 'cd gcontacts'
-        sh 'cd gcontacts && sudo apt install python3-virtualenv -y &&  ~/.local/bin/virtualenv env '
+        sh 'cd gcontacts && apt install python3-virtualenv -y &&  ~/.local/bin/virtualenv env '
 
 
          // Print workspace directory for debugging
