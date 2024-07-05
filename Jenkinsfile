@@ -7,36 +7,52 @@ pipeline {
       }
     }
 
-    stage('SonarQube Analysis') {
+   
+    stage('Activationg Enviornment') {
+      steps {
+        // sh 'cd gcontacts'
+        sh 'cd gcontacts && sudo apt install python3-virtualenv -y &&  /usr/bin/virtualenv env '
+
+
+         // Print workspace directory for debugging
+        sh 'cd gcontacts &&  pwd'
+        sh  'cd gcontacts && ls -l'
+        
+        // Activate the virtual environment
+        // sh 'cd gcontacts && . ./env/bin/activate'
+
+        // sh '. env/bin/activate'
+        sh 'cd gcontacts && . ./env/bin/activate && pip install -r requirements.txt'
+        sh 'cd gcontacts && . ./env/bin/activate && ./env/bin/python ./manage.py migrate'
+        sh 'cd gcontacts && . ./env/bin/activate && ./env/bin/pytest'
+      }
+    }
+
+    stage('Installing Requirments and Migrating ') {
+      steps {
+        
+        sh 'cd gcontacts && . ./env/bin/activate && pip install -r requirements.txt'
+        sh 'cd gcontacts && . ./env/bin/activate && ./env/bin/python ./manage.py migrate'
+      }
+    }
+
+     stage('Testing and generating Coverage Report') {
+      steps {
+        sh 'cd gcontacts && . ./env/bin/activate && ./env/bin/pytest --cov=. --cov-report=xml'
+      }
+    }
+
+     stage('SonarQube Analysis') {
       steps {
         script {
           scannerHome = tool 'sonarqube'
         }
         withSonarQubeEnv('sonarcube-server') {
-          sh "${scannerHome}/bin/sonar-scanner"
+          sh "${scannerHome}/bin/sonar-scanner -Dsonar.python.coverage.reportPaths=gcontacts/coverage.xml"
         } 
       }
     }
 
-    // stage('Testing') {
-    //   steps {
-    //     // sh 'cd gcontacts'
-    //     sh 'cd gcontacts && sudo apt install python3-virtualenv -y &&  /usr/bin/virtualenv env '
-
-
-    //      // Print workspace directory for debugging
-    //     sh 'cd gcontacts &&  pwd'
-    //     sh  'cd gcontacts && ls -l'
-        
-    //     // Activate the virtual environment
-    //     // sh 'cd gcontacts && . ./env/bin/activate'
-
-    //     // sh '. env/bin/activate'
-    //     sh 'cd gcontacts && . ./env/bin/activate && pip install -r requirements.txt'
-    //     sh 'cd gcontacts && . ./env/bin/activate && ./env/bin/python ./manage.py migrate'
-    //     sh 'cd gcontacts && . ./env/bin/activate && ./env/bin/pytest'
-    //   }
-    // }
 
     // stage('Build Docker') {
     //   parallel {

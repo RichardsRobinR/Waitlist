@@ -4,3 +4,4 @@ googlecontacts/tests/__pycache__
 tests/__pycache__
 googlecontacts/migrations
 gcontacts/__pycache__
+.coverage
