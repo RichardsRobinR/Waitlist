@@ -11,7 +11,7 @@ pipeline {
       steps {
         sshagent(credentials: ['ssh-credentials-id']) {
           
-              sh '''ssh -o StrictHostKeyChecking=no  ubuntu@ec2-3-109-203-91.ap-south-1.compute.amazonaws.com << 'EOF'
+              sh '''ssh -o StrictHostKeyChecking=no  ubuntu@ec2-3-109-203-91.ap-south-1.compute.amazonaws.com << EOF
                 # Commands to be executed on the remote server
 
                echo "Running commands on remote server"
