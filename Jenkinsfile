@@ -1,7 +1,7 @@
 pipeline {
   agent {
     kubernetes {
-            label 'jenkins-agent'  // This should match the label of your Pod Template
+            inheritFrom 'jenkins-agent'  // This should match the label of your Pod Template
             defaultContainer 'kubectl'  // The name of the container defined in the Pod Template
     }
   } 
