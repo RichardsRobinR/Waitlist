@@ -1,5 +1,10 @@
 pipeline {
-  agent any
+  agent {
+    kubernetes {
+            label 'jenkins-agent'  // This should match the label of your Pod Template
+            defaultContainer 'kubectl'  // The name of the container defined in the Pod Template
+    }
+  } 
   stages {
     stage('Clone Git') {
       steps {
@@ -7,10 +12,12 @@ pipeline {
       }
     }
 
-    stage('Kubbbbb') {
-      steps {
-        sh 'kubectl get nodes'
-      }
+    stage('Deploy to Kubernetes') {
+            steps {
+                container('kubectl') {
+                    sh 'kubectl get nodes'
+                }
+            }
     }
    
     // stage('Activationg Enviornment') {
