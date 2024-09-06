@@ -87,7 +87,7 @@ pipeline {
     //     sh 'docker tag waitlist-django-app richardsrobinr/waitlist-django-app:latest'
     //     sh 'docker push richardsrobinr/waitlist-django-app:latest'       
     //   }
-    }
+    // }
 
   }
 }
