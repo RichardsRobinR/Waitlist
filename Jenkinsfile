@@ -24,7 +24,7 @@ pipeline {
                 kubectl apply -f service.yaml
                 # Add any additional commands here
                 echo "Commands executed successfully"
-                EOF'
+EOF
                 '''
           
           }
