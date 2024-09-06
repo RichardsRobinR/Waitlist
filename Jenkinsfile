@@ -16,8 +16,8 @@ pipeline {
 
                echo "Running commands on remote server"
                 # Download the files from GitHub
-                curl -L -o ~/jenkinstemp/development.yaml https://github.com/RichardsRobinR/Waitlist/blob/master/deployment.yaml
-                curl -L -o ~/jenkinstemp/service.yaml https://github.com/RichardsRobinR/Waitlist/blob/master/services.yaml
+                curl -L -o ~/jenkinstemp/development.yaml https://raw.githubusercontent.com/RichardsRobinR/Waitlist/master/deployment.yaml
+                curl -L -o ~/jenkinstemp/service.yaml https://raw.githubusercontent.com/RichardsRobinR/Waitlist/master/services.yaml
 
                 cd jenkinstemp
                 kubectl apply -f development.yaml
