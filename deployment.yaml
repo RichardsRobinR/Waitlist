@@ -1,9 +1,10 @@
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: waitlist-django-app
 spec:
-  replicas: 2  # Number of pod replicas
+  replicas: 2
   selector:
     matchLabels:
       app: waitlist-django-app
@@ -13,7 +14,7 @@ spec:
         app: waitlist-django-app
     spec:
       containers:
-      - name: waitlist-django-container
-        image: richardsrobinr/waitlist-django-app:latest  # Your Docker image
-        ports:
-        - containerPort: 8000  # Django default port
+        - name: waitlist-django-container
+          image: richardsrobinr/waitlist-django-app:latest
+          ports:
+            - containerPort: 8000
