@@ -12,7 +12,19 @@ pipeline {
         sshagent(credentials: ['ssh-credentials-id']) {
           
               sh '''ssh -o StrictHostKeyChecking=no  ubuntu@ec2-3-109-203-91.ap-south-1.compute.amazonaws.com 
-         "ls -a"
+               << 'EOF'
+                # Commands to be executed on the remote server
+
+               echo "Running commands on remote server"
+                # Download the files from GitHub
+                curl -L -o /jenkinstmp/development.yaml https://github.com/RichardsRobinR/Waitlist/blob/master/deployment.yaml
+                curl -L -o /jenkinstmp/service.yaml https://github.com/RichardsRobinR/Waitlist/blob/master/services.yaml
+               
+                kubectl apply -f development.yaml
+                kubectl apply -f service.yaml
+                # Add any additional commands here
+                echo "Commands executed successfully"
+            EOF
           '''
           
           }
