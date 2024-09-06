@@ -19,8 +19,8 @@ pipeline {
                 curl -L -o ~/jenkinstemp/development.yaml https://github.com/RichardsRobinR/Waitlist/blob/master/deployment.yaml
                 curl -L -o ~/jenkinstemp/service.yaml https://github.com/RichardsRobinR/Waitlist/blob/master/services.yaml
                
-                kubectl apply -f development.yaml
-                kubectl apply -f service.yaml
+                cd jenkinstemp && kubectl apply -f development.yaml
+                cd jenkinstemp && kubectl apply -f service.yaml
                 # Add any additional commands here
                 echo "Commands executed successfully"
             EOF
