@@ -12,7 +12,7 @@ pipeline {
         sshagent(credentials: ['ssh-credentials-id']) {
           
               sh '''ssh -o StrictHostKeyChecking=no  ubuntu@ec2-3-109-203-91.ap-south-1.compute.amazonaws.com 
-         ls -a
+         "ls -a"
           '''
           
           }
