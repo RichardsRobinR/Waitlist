@@ -1,10 +1,5 @@
 pipeline {
-  agent {
-    kubernetes {
-            inheritFrom 'jenkins-agent'  // This should match the label of your Pod Template
-            defaultContainer 'kubectl'  // The name of the container defined in the Pod Template
-    }
-  } 
+  agent any
   stages {
     stage('Clone Git') {
       steps {
@@ -12,13 +7,19 @@ pipeline {
       }
     }
 
-    stage('Deploy to Kubernetes') {
-            steps {
-                container('kubectl') {
-                    sh 'kubectl get nodes'
-                }
-            }
+    stages('CHecking') {
+      steps {
+        sshagent(credentials: ['ssh-credentials-id']) {
+          
+              sh 'ssh -o StrictHostKeyChecking=no  ubuntu@ec2-3-109-203-91.ap-south-1.compute.amazonaws.com "ls"'
+          
+          }
+        }
+      
     }
+
+    
+    
    
     // stage('Activationg Enviornment') {
     //   steps {
