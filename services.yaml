@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: waitlist-django-service
+spec:
+  type: NodePort
+  selector:
+    app: waitlist-django-app  # Match the labels in the Deployment
+  ports:
+  - protocol: TCP
+    port: 80  # External port
+    targetPort: 8000  # Port inside the container
+    nodePort: 30080 # Optional: specify a node port within the 30000-32767 range
