@@ -7,7 +7,7 @@ pipeline {
       }
     }
 
-    stages('CHecking') {
+    stage('CHecking') {
       steps {
         sshagent(credentials: ['ssh-credentials-id']) {
           
