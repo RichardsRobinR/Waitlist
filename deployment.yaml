@@ -16,4 +16,11 @@ spec:
       - name: waitlist-django-container
         image: richardsrobinr/waitlist-django-app:latest  # Your Docker image
         ports:
-        - containerPort: 8000  # Django default port
+          - containerPort: 8000  # Django default port
+        resources:
+          requests:
+            memory: "128Mi"
+            cpu: "100m"
+          limits:
+            memory: "256Mi"
+            cpu: "200m"
